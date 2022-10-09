@@ -1,16 +1,15 @@
 //const {Chart} = require("chart.js");
 
-function updateGraph(e, legendItem, legendElement) {
-    Chart.defaults.
+function updateGraph(evt, item, legend) {
+    //Chart.defaults.
     console.log("Pretty Colors")
 }
 
-
 let ctx_new = document.getElementById("id3").getContext("2d");
 let char = new Chart(ctx_new, {
-    type: "bar",
+    type: "line",
     data: {
-        labels: ["a", "b", "c"],
+        labels: ["a", "b", "c", "d", "e", "f"],
         datasets:[{
             label: ["Number of votes"],
             data: [12, 19, 3, 5, 2, 3],
@@ -37,9 +36,20 @@ let char = new Chart(ctx_new, {
         scales: {
             y: {
                 beginAtZero: true,
-            }
+            },
         },
         maintainAspectRation: false,
+
+        animations: {
+            tension: {
+                duration: 1000,
+                easing: "linear",
+                loop: true,
+                from: 1,
+                to: 0,
+                },
+            },
+
         plugins: {
             title: {
                 text: 'This is the title of the graph',
@@ -57,11 +67,11 @@ let char = new Chart(ctx_new, {
                 display: true,
                 align: "end",
                 title: "Legend",  
-                onClick: updateGraph              
-            }
+                onClick: updateGraph,              
+            },
             
-        }
-    }
+        },
+    },
 )
 
 char.resize(500, 500)
