@@ -1,0 +1,9 @@
+{
+  "include": [
+    "*.js",
+    "libraries/*.js",
+    "c:\\Users\\Asus\\.vscode\\extensions\\samplavigne.p5-vscode-1.2.11\\p5types\\global.d.ts",
+    "c:\\Users\\Asus\\node_modules\\types\\matter-js\\index.d.ts",
+    "c:\\Users\\Asus\\node_modules\\chart.js\\types\\*.d.ts"
+  ]
+}

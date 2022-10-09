@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../css"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "HMTL-tutorial",
+		"files.associations": {
+			"iostream": "cpp"
+		}
+	}
+}

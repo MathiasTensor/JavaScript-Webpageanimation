@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sketch</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+    <script src="libraries/p5.matter.js"></script>
+    <script src="libraries/grafica.min.js"></script>
+    <script src="libraries/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.js"></script>
+    <!--<script src="p5_mult_canvas.js"></script>-->
+  
+  </head>
+  <body>
+    <div id="text-id"><h1>This is just some <span style="color: rgb(49, 32, 161);">NORMAL</span> text</h1></div>
+    <div id="input">
+      <label for="input_button">Input <span style="text-transform: uppercase;">f(x,y)</span> expression here (use predefined syntax):</label>
+      <input id="inp" type="text" name="/" id="input_button" placeholder="Math.sin(x)*Math.cos(x)">
+      <button type="submit" onclick="parseFunc()">Try it!</button>
+    </div>
+    <div id="id1" style="display: inline-block;"></div>
+    <div id="id-interim">Just some interim text. Why is it placed here?</div>
+    <div id="id2" style="display: inline-block;"></div>
+    <div width="400" height="400">
+      <canvas id="id3" style="display: inline-block;" width="400" height="400"></canvas>
+    </div>
+    <script type="module" src="canvas_1.js"></script>
+    <script src="p5_mult_canvas.js"></script>
+  </body>
+</html>
+
