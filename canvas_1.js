@@ -113,6 +113,8 @@ class Graph {
                 x: {
                     ticks: {
                         stepSize: 1,
+                        min: Math.PI / 2,
+                        max: Math.PI * 3/2
                     },
                 },
             },
