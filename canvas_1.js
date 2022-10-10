@@ -1,33 +1,39 @@
-//const {Chart} = require("chart.js");
+const {Chart} = require("chart.js");
 
-function updateGraph(evt, item, legend) {
-    //Chart.defaults.
-    console.log("Pretty Colors")
+function array_rand() {
+	let array = Array();
+	/**Create a random array */
+	for (let i = 0; i < 100; i++) {
+	    array[i] = Math.random()*10;
+	    
+	}
+    return array
 }
+
+function array_idx() {
+	/**Create index array */
+	let array_index = Array();
+	for (let i = 0; i < 100; i++) {
+	    array_index[i] = i;
+	    
+	}
+    return array_index
+}
+
 
 let ctx_new = document.getElementById("id3").getContext("2d");
 let char = new Chart(ctx_new, {
     type: "line",
     data: {
-        labels: ["a", "b", "c", "d", "e", "f"],
+        labels: array_idx(),
         datasets:[{
-            label: ["Number of votes"],
-            data: [12, 19, 3, 5, 2, 3],
+            label: ["Plotting random data"],
+            data: array_rand(),
             backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(255, 120, 0, 1)',
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
         }]
@@ -39,20 +45,19 @@ let char = new Chart(ctx_new, {
             },
         },
         maintainAspectRation: false,
-
         animations: {
             tension: {
                 duration: 1000,
                 easing: "linear",
                 loop: true,
-                from: 1,
-                to: 0,
+                from: 0,
+                to: array_idx.length,
                 },
             },
 
         plugins: {
             title: {
-                text: 'This is the title of the graph',
+                text: 'Plottig random data',
                 display: true,
             },
             subtitle: {
@@ -61,7 +66,7 @@ let char = new Chart(ctx_new, {
             },
             legend: {
                 labels: {
-                    color: "rgb(12, 128, 50)",
+                    color: "rgb(128, 128, 128)",
                     },
                 },
                 display: true,
@@ -73,5 +78,22 @@ let char = new Chart(ctx_new, {
         },
     },
 )
+//
 
-char.resize(500, 500)
+
+function updateGraph(evt, item, legend) {
+    //Chart.defaults.
+    console.log("Pretty Colors")
+}
+
+
+
+char.onClick = (evt) => {
+    var ActivePoints = char.getElementsAtEvent(evt);
+    console.log("events", ActivePoints);
+}
+
+
+console.log(char.config.data);
+console.log(char.config.options);
+char.resize(500, 500);
