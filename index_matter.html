@@ -8,8 +8,61 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <canvas id="id_matter" width="500" height="500"></canvas>
+    <div id="Matter-html">
+        <div>
+            <canvas id="id_matter" width="500" height="500"></canvas>
+        </div>
+        <div style="display: block;">
+            <div style="display: inline-block; border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset;">
+                <button style="width: 108px;" onclick="funcButton1()">Add 1th Spring</button>
+                <label style="display: block;" for="slider1">Stiffness Spring 1</label>
+                <input style="display: block; width: 108px;" type="range" min="1" max="200" value="50" class="slider" id="slider1">
+                
+                <label style="display: block;" for="slider1pos">Lenght Spring 1</label>
+                <input style="display: block; width: 108px;" type="range" min="0" max="200" value="100" class="slider" id="slider1pos">
+            </div>
+            <div style="display: inline-block; border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset;">
+                <button style="width: 108px;" onclick="funcButton2()">Add 2th Spring</button>
+                <label style="display: block;" for="slider2">Stiffness Spring 2</label>
+                <input style="display: block; width: 108px;" type="range" min="1" max="200" value="50" class="slider" id="slider2">
+
+                <label style="display: block;" for="slider2pos">Lenght Spring 2</label>
+                <input style="display: block; width: 108px;" type="range" min="0" max="200" value="100" class="slider" id="slider2pos">
+            </div>
+            <div style="display: inline-block; border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset;">
+                <button style="width: 108px;" onclick="funcButton3()">Add 3th Spring</button>
+                <label style="display: block;" for="slider3">Stiffness Spring 3</label>
+                <input style="display: block; width: 108px;" type="range" min="1" max="200" value="50" class="slider" id="slider3">
+
+                <label style="display: block;" for="slider3pos">Lenght Spring 3</label>
+                <input style="display: block; width: 108px;" type="range" min="0" max="200" value="100" class="slider" id="slider3pos">
+            </div>
+            <div style="display: inline-block; border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset;">
+                <button style="width: 108px;" onclick="funcButton4()">Add 4th Spring</button>
+                <label style="display: block;" for="slider4">Stiffness Spring 4</label>
+                <input style="display: block; width: 108px;" type="range" min="1" max="200" value="50" class="slider" id="slider4">
+
+                <label style="display: block;" for="slider4pos">Lenght Spring 4</label>
+                <input style="display: block; width: 108px;" type="range" min="0" max="200" value="100" class="slider" id="slider4pos">
+            </div>
+        </div>
+        <div>
+
+        </div>
+        <div style="display: block;">
+            <div style="display: inline-block; border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset;">
+                <label style="display: block;" for="vel_dis_x">Velocity x:</label>
+                <input style="display: block;" type="text" name="num" id="vel_dis_x" placeholder="0">
+            </div>
+            <div style="display: inline-block; border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset;">
+                <label style="display: block;" for="vel_dis_y">Velocity y:</label>
+                <input style="display: block;" type="text" name="num" id="vel_dis_y" placeholder="0">
+            </div> 
+            <div style="display: inline-block; border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset;">
+                <button style="width: 130px; display: block;" onclick="AddRect()">Add boxes</button>
+                <button style="width: 130px; display: block;" onclick="Reset()">Reset</button>
+            </div> 
+        </div>
     </div>
     <script src="matter_tut.js"></script>
 </body>
