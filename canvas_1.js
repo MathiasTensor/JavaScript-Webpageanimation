@@ -138,7 +138,7 @@ class Graph {
                     title: "Legend", 
                     },  
                 filler: {
-                    propagata: false,
+                    propagate: false,
                 }           
                 },
                 

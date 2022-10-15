@@ -5,10 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="libraries/p5.matter.js"></script>
+    <script src="libraries/chart.min.js"></script>
     <title>Document</title>
 </head>
 <body>
     <div id="Matter-html">
+        <div>
+            <canvas id="canvas_graph" style="width: 500px; height: 200px; background-color: bisque;"></canvas>
+        </div>
         <div>
             <canvas id="id_matter" width="500" height="500"></canvas>
         </div>
@@ -46,9 +50,7 @@
                 <input style="display: block; width: 108px;" type="range" min="0" max="200" value="100" class="slider" id="slider4pos">
             </div>
         </div>
-        <div>
 
-        </div>
         <div style="display: block;">
             <div style="display: inline-block; border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset;">
                 <label style="display: block;" for="vel_dis_x">Velocity x:</label>
@@ -60,8 +62,32 @@
             </div> 
             <div style="display: inline-block; border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset;">
                 <button style="width: 130px; display: block;" onclick="AddRect()">Add boxes</button>
-                <button style="width: 130px; display: block;" onclick="Reset()">Reset</button>
+                <button style="width: 130px; display: block;" onclick="Reset()">Reset Springs</button>
             </div> 
+        </div>
+        <div style="display: block; width: 500px;">
+            <div style="display: inline-block;  border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset; width: 140px; padding: 0;">
+                <label for="gravityX">Insert x gravity scale:</label>
+                <input style="width: 130px;" type="number" name="gravityX" id="gravityX" placeholder="0">
+                <button style="width: 130px; display: block;" onclick="AddGravityX()">Apply</button>
+            </div>
+            <div style="display: inline-block;  border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset; width: 140px; padding: 0;">
+                <label for="gravityY">Insert y gravity scale:</label>
+                <input style="width: 130px;" type="number" name="gravityY" id="gravityY" placeholder="0">
+                <button style="width: 130px; display: block;" onclick="AddGravityY()">Apply</button>
+            </div>
+            <div style="display: inline-block;  border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset; width: 140px; padding: 0;">
+                <label for="springf">#Springs w/ frict:</label>
+                <input style="width: 65px;" type="number" id="springf" placeholder="1">
+                <button style="display: inline-block; width: 60px;" onclick="AddSprings()">Add</button>
+                <button style="width: 65px; display: inline-block;" onclick="NewWorld()">New</button>
+                <button style="width: 65px; display: inline-block;" onclick="OldWorld()">Back</button>
+            </div>
+            <div style="display: inline-block;  border-width: 5px; border-color: rgb(34, 80, 171); border-style: inset; width: 40px; padding: 0;">
+                <label for="springf">Graph</label>
+                <button style="display: inline-block; width: 40px;" onclick="GetGraph()">Add</button>
+                <button style="width: 40px; display: inline-block;" onclick="ClearGraph()">Back</button>
+            </div>
         </div>
     </div>
     <script src="matter_tut.js"></script>
