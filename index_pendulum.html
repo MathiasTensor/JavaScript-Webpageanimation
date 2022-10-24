@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="libraries/p5.matter.js"></script>
+    <script src="libraries/chart.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="pendulum"></canvas>
+    <div style="display: block;">
+        <button id="addSpring" onclick="addSpring()">Add spring</button>
+        <button id="resetSpring" onclick="resetSpring()">Reset</button>
+        <label for="slider">Change Lenght: <span style="color: rgb(45, 19, 214);">Spring1</span></label>
+        <input type="range" min="50" max="300" value="100" class="slider" id="slider">
+    </div>
+    <div style="display: block;">
+        <label for="slider">Change Lenght: <span style="color: rgb(220, 63, 207);">Spring2</span></label>
+        <input type="range" min="30" max="100" value="50" class="slider" id="slider_double">
+        <label for="gravity">Change Gravity:</label>
+        <input type="range" min="0" max="5" value="1" class="slider" id="gravity">
+    </div>
+        <canvas id="plot1"></canvas>
+        <canvas id="plot2"></canvas>
+    <script src="matter_pendulum.js"></script>
+</body>
+</html>

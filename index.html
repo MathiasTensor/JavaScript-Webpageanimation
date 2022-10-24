@@ -9,26 +9,37 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 
     <script src="libraries/p5.min.js"></script>
-    <script src="libraries/p5.sound.min.js"></script>
     <script src="libraries/p5.matter.js"></script>
-    <script src="libraries/grafica.min.js"></script>
+    <script src=https://cdn.jsdelivr.net/npm/tex-math-parser></script>
     <script type="module" src="libraries/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.js"></script>
-    <script src="https://chemdrawdirect.perkinelmer.cloud/js/chemdrawweb/chemdrawweb.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
   
   </head>
   <body>
-    <div id="text-id"><h1>This is just some <span style="color: rgb(49, 32, 161);">NORMAL</span> text</h1></div>
     <div id="input">
-      <label for="input_button">Input <span style="text-transform: uppercase;">f(x,y)</span> expression here (use predefined syntax):</label>
-      <input id="inp" type="text" name="/" id="input_button" placeholder="Math.sin(x)*Math.cos(x)">
-      <button type="submit" onclick="parseFunc()">Try it!</button>
+      <label for="inp">Input <span style="text-transform: uppercase;">f(x,y)</span> expression here (use predefined syntax):</label>
+      <input id="inp" type="text" name="/" placeholder="Math.sin(x)*Math.cos(x)">
+      <button type="submit" onclick="parseFunc()" disabled>Try it!</button>
     </div>
     <div id="id1" style="display: inline-block;"></div>
-    <div id="id-interim">Just some interim text. Why is it placed here?</div>
+    <div id="sliders"></div>
+    <span>\[\int_0^{L} (15 \times \log x) \mathrm{dx} = \lim_{n \to \infty} \sum_{i=1}^{n} (15 \times \log i) \Delta x_{i} \approx \sum_{i=1}^{M} (15 \times \log i) \Delta x_{i} \]</span>
+    <div id="spanElement"></div>
     <div id="id2" style="display: inline-block;"></div>
-    <div width="400" height="400">
-      <canvas id="id3" aria-label="Graph" style="display: inline-block;" style="max-width: 400; max-height: 400;"></canvas>
+    <div style="position: relative; width: 500px !important; height: 500px !important;">
+      <canvas id="id3" aria-label="Graph" style="display: inline-block;"></canvas>
+    </div>
+    <div>
+      <canvas id="pendulum"></canvas>
     </div>
     <script type="module" src="canvas_1.js"></script>
     <script src="p5_mult_canvas.js"></script>

@@ -180,7 +180,6 @@ if (boxNew.velocity.y != 0) {
     boxNew.velocity.y = 0;
 };
 
-
 // Create constraint between boxA and boxB
 var constrAB = Matter.Constraint.create({
     bodyA: boxA,
@@ -290,13 +289,16 @@ Matter.Events.on(MouseConstraint, "startdrag", (_e) => {
     // change color of boxV when dragged
     if (MouseConstraint.body === boxB || MouseConstraint.body === boxNew) {
         boxB.render.fillStyle = "cyan";
+        boxNew.render.fillStyle = "cyan"
     }
 });
 
 Matter.Events.on(MouseConstraint, "enddrag", (_e) => {
     // change color when ending dragged
-    boxB.render.fillStyle = "yellow";
-    boxNew.render.fillStyle = "yellow";
+    if (MouseConstraint.body === boxB || MouseConstraint.body === boxNew) {
+        boxB.render.fillStyle = "yellow";
+        boxNew.render.fillStyle = "yellow";
+    }
 });
 
 Matter.Events.on(runner, "afterUpdate", (_e) => {
@@ -330,8 +332,7 @@ function Reset() {
     Matter.World.clear(world, true);
     Matter.World.add(world, [MouseConstraint, boxA, boxB, ground, boxleft, boxup]);
 }
-//const { Chart } = require("chart.js");
-// Add graph of x/y positions as a function of time
+
 class Graph {
     
     constructor(id, labels, data, label) {
@@ -428,30 +429,20 @@ class Graph {
         let boxNEW = Matter.Composite.get(world, "box_new", "body");
         // Add new labels for new graph elements
         let labelXadd = this.graph.data.labels.push(engine.timing.timestamp);
-        if (this.graph.data.labels > 100) {
-            this.graph.data.labels.splice(1, this.graph.data.labels.length - 100);
-            console.log("BOXES", this.graph.data.labels);
-        };
-        console.log(this.graph.data.labels);
 
         if (boxINIT) {
             // Add to x coord new data
             let boxINITaddX = this.graph.data.datasets[0].data
             boxINITaddX.push(boxINIT.position.x);
-            if (boxINITaddX > 100) {
-                boxINITaddX.splice(1, boxINITaddX.length - 100);
-                console.log("BOXES", boxINITaddX);
-            };
+            
             //Add to y coord new data
             let boxINITaddY = this.graph.data.datasets[1].data
             boxINITaddY.push(boxINIT.position.y);
-            if (boxINITaddY > 100) {
-                boxINITaddY.splice(1, boxINITaddY.length - 100);
-            };
+
             // Change axis
-            this.graph.options.scales.x.min = engine.timing.timestamp / 4;
-            this.graph.options.scales.x.max = engine.timing.timestamp + 5000;
-            this.graph.options.plugins.title.text = "Observing initial box" //<-- deluje
+            this.graph.options.scales.x.min = 0;
+            this.graph.options.scales.x.max = engine.timing.timestamp;
+            this.graph.options.plugins.title.text = "Observing initial box"
             this.graph.update();
         }
         else if (boxNEW) {
@@ -460,10 +451,17 @@ class Graph {
             // Add to y coord new data
             this.graph.data.datasets[1].data.push(boxNEW.position.y);
             // Change axis
-            this.graph.options.plugins.title.text = "Observing new box" //<-- deluje
+            // Change axis
+            this.graph.options.scales.x.min = 0;
+            this.graph.options.scales.x.max = engine.timing.timestamp;
+            this.graph.options.plugins.title.text = "Observing new box"
             this.graph.update();
         }
     };
+
+    destroy () {
+        this.graph.destroy();
+    }
 };
 
 // for the x axis array index
@@ -478,21 +476,19 @@ function labelX(size) {
 // Create plotting tool
 let gtx = new Graph("canvas_graph", [], [[], []], [["x coord"], ["y coord"]]);
 
+// graph functions
 function GetGraph() {
     let cn = document.getElementById("canvas_graph");
     cn.backgroundColor = "white"
     gtx.create(); 
-};
-
-function loop(_e) {
-    gtx.append();
+    // tick loop for adding positions to graph
+    setInterval(() => {
+        gtx.append();
+    }, 1000);
 };
 
 function ClearGraph() {
-    gtx.destroy();
-    Matter.Events.off(runner, "tick", loop);
+    gtx.destroy(); 
 }
 
-// tick loop for adding positions to graph
-Matter.Events.on(runner, "tick", loop);
 

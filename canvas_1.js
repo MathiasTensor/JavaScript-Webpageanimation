@@ -1,40 +1,25 @@
 //const { Chart } = require("chart.js");
 
-/** For the initial sine graph */
-
-function array_rand_sin(size) {
+function array_sin(size) {
+    //Create a random array sin
 	let array = Array();
-	/**Create a random array sin*/
     for (let i = 0; i*2*Math.PI/size< 2*Math.PI; i++) {
 	    array[i] = Math.sin(i*2*Math.PI/size);
 	}
     return array;
 }
 
-/** For the shifted cos graph */
-
-function array_rand_cos(size) {
+function array_cos(size) {
+    //Create a random array cos
 	let array = Array();
-    	/**Create a random array cos*/
     for (let i = 0; i*2*Math.PI/size< 2*Math.PI; i++) {
-	    array[i] = Math.cos(i*2*Math.PI/size);
+	    array[i] = Math.cos(i*2*Math.PI/size) + 0.05;
 	}
     return array;
 }
 
-/**For tangent line */
-
-function array_tangent(size) {
-    let tang = Array();
-    for (let i = 0; i*2*Math.PI/size< 2*Math.PI; i++) {
-	    tang[i] = -(i*2*Math.PI/size) + Math.PI;
-    }
-    return tang;
-}
-
-/**Create index array */
-
 function array_idx(size) {
+    // Create index array
 	let array_index = Array();
     for (let i = 0; i*2*Math.PI/size < 2*Math.PI; i++) {
 	    array_index[i] = (i*2*Math.PI/size).toPrecision(2);    
@@ -42,68 +27,58 @@ function array_idx(size) {
     return array_index;
 }
 
-/**For the tangent line */
-
-function tangent_lines(array_rand, array_idx) {
-    let y = array_rand();
-    let x = array_idx();
-    let m_container = Array();
-    for (let i = 0; i <= y.length; i = i++) {
-        m_container[i] = (y[i + 1] - y[i]) / (x[i + 1]- x[i]);
-    }
-    return m_container;
-}
-
-
-class Graph {
-    
-    constructor(id, labels, data, label) {
-        this.path = document.getElementById(id).getContext("2d");
-        this.data = data;
-        this.labels = labels;
-        this.label = label; 
-        this.datasets = [{
-            label: this.label[0],
-            data: this.data[0],
+let id = "id3"
+let path = document.getElementById(id).getContext("2d");
+let data = [array_sin(200), array_cos(200), []];
+let labels = array_idx(200);
+let label = [["-Plotting line sin"], ["-Plotting line cos"], ["Tangent"]]; 
+let datasets = [{
+            label: label[0],
+            data: data[0],
             backgroundColor: [
                 `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 1)`,
             ],
             borderColor: [
                 `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 1)`,
             ],
-            borderWidth: 2
+            borderWidth: 2,
+            pointRadius: 1,
+            pointHoverRadius: 2,
             },
             
-            {label: this.label[1],
-            data: this.data[1],
+            {label: label[1],
+            data: data[1],
             backgroundColor: [
                 `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 1)`,
             ],
             borderColor: [
                 `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 1)`,
             ],
-            borderWidth: 2,},
+            borderWidth: 2,
+            pointRadius: 1,
+            pointHoverRadius: 2},
 
-            {label: this.label[2],
-            data: this.data[2],
+            {label: label[2],
+            data: data[2],
             backgroundColor: [
                 `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 1)`,
             ],
             borderColor: [
                 `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255}, 1)`,
             ],
-            borderWidth: 1,},
-        ]
-    }
+            borderWidth: 2,
+            pointRadius: 1,
+            pointHoverRadius: 1},
+        ];
 
-    create() {
-        let graph = new Chart(this.path, {
+let graph = new Chart(path, {
         type: "line",
         data: {
-            labels: this.labels,
-            datasets: this.datasets,
+            labels: labels,
+            datasets: datasets,
         },
         options: {
+            onHover: AddTangent,
             scales: {
                 y: {
                     beginAtZero: true,
@@ -119,7 +94,7 @@ class Graph {
                 },
             },
             maintainAspectRation: false,
-            spanGaps: false,
+            responsive: true,
             plugins: {
                 title: {
                     text: 'Plotting trigonometric data',
@@ -127,7 +102,7 @@ class Graph {
                 },
                 subtitle: {
                     display: true,
-                    text: "sin & cos",
+                    text: "Click on sin & cos for tangent",
                 },
                 legend: {
                     labels: {
@@ -141,15 +116,49 @@ class Graph {
                     propagate: false,
                 }           
                 },
-                
+              
             },
         },
     )
-    return graph
-    }
 
-}
+function update(graph) {
+    // Update graph
+    graph.update();
+};
 
-let gph = new Graph("id3", array_idx(200), [array_rand_sin(200), array_rand_cos(200), array_tangent(200)], [["-Plotting line sin"], ["-Plotting line cos"], ["Tangent to sin at x=0"]]);
-gph.create();
 
+function AddTangent(ev, data, graf) {
+    // Adds tangent at the clicked point. Uses auxillary plotTangent function
+    // ev gives us mouse coords, data gives us the index and graph num. graph we dont need
+    if (ev.type === "click") {
+
+        if (data[0].datasetIndex === 1) {
+            graph.data.datasets[2].label = [`-Tangent to graph ${data[0].datasetIndex + 1} at x=${(data[0].index * 2*Math.PI / array_idx(200).length).toPrecision(2)}`];
+            /*graph.data.datasets[2].data =array_idx(200).forEach((val, ind, arr) => {
+                plotTangent(graph.data.datasets[0].data[data[0].index], data[0].index, graph.data.datasets[1].data[data[0].index], ind);
+            });*/
+            graph.data.datasets[2].data = plotTangent(-graph.data.datasets[0].data[(data[0].index)], (data[0].index * 2*Math.PI / array_idx(200).length).toPrecision(2), graph.data.datasets[1].data[(data[0].index)], array_idx(200));
+            
+        update(graph);
+        };
+        if (data[0].datasetIndex === 0) {
+                graph.data.datasets[2].label = [`-Tangent to graph ${data[0].datasetIndex + 1} at x=${(data[0].index * 2*Math.PI / array_idx(200).length).toPrecision(2)}`];
+                /*graph.data.datasets[2].data =array_idx(200).forEach((val, ind, arr) => {
+                    plotTangent(graph.data.datasets[0].data[data[0].index], data[0].index, graph.data.datasets[1].data[data[0].index], ind);
+                });*/
+                graph.data.datasets[2].data = plotTangent(graph.data.datasets[1].data[(data[0].index)], (data[0].index * 2*Math.PI / array_idx(200).length).toPrecision(5), graph.data.datasets[0].data[(data[0].index)], array_idx(200));
+                
+            update(graph);
+        };
+    };
+}; 
+
+function plotTangent(m, xINIT, yINIT, index_array) {
+    // Function that creates a tangent at the point(xINIT, yINIT)
+    let n = yINIT - m * xINIT;
+    let array = [];
+    for (let index = 0; index < index_array.length; index++) {
+        array[index] = m * (index*2*Math.PI/index_array.length).toPrecision(5) + n;  
+    };
+    return array;
+};
